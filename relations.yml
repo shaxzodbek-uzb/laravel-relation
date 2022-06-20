@@ -1,0 +1,96 @@
+// one to one
+1ta obyekt boshqa bitta obyekt
+products - table
+id | name| price| desc| color| size| warehouse| category_id ... 20dan oshiq
+
+products - one
+id| name| desc
+1 | Olma| srin
+2 | NOK | srin
+
+product_details - one
+id| color| size| warehouse| product_id
+1 | yashi| 12  | asosiy   | 1
+2 | ko'k | 13  | navoiy   | 2
+
+$order->products[0]->product_details->color
+
+// many to one, one to many
+products - one
+id| name| desc
+1 | Olma| shirin
+id - primary key
+
+prices - many
+id| amount| currency| product_id - forign key
+1 | 200000| UZS     | 1
+2 | 220000| UZS     | 1
+
+// many to many
+
+products - many
+id| name| desc
+1 | Olma| shirin
+2 | NOK | shirin
+id - primary key
+
+category_product
+id| category_id| product_id|
+1 | 1          | 1
+2 | 1          | 2
+3 | 2          | 1
+3 | 2          | 2
+unique(['category_id', 'product_id'])
+
+categories - many
+id| name     
+1 | Meva     
+2 | Uzb meva 
+3 | Sabzavot 
+4 | Askiyadagi meva
+
+1. Meva tegishli productli chiqar:
+1 - Olma
+2 - NOK
+2. Olmaga tefishli kategoriyalar:
+1 - Meva
+2 - Uzb meva
+
+// Morph
+Video
+id| link| name
+1 | http| Zo'r video shok shok
+2 | http| Zo'r video shok shok
+
+Images
+id| image| desc
+1 | rams | zo'r rasm
+2 | rams | zo'r rasm
+
+Comments
+id| text| user_id | object_id| object_type
+1 | comm| 1       | 1        | image
+1 | com2| 2       | 1        | video
+
+$comment->commentable->name
+
+// Morph many
+
+products - many
+id| name| desc
+1 | Olma| shirin
+2 | NOK | shirin
+id - primary key
+
+category_categoriable
+id| category_id| object_id| object_type| created_at
+1 | 1          | 1        | Product
+2 | 1          | 2        | Post
+3 | 2          | 1        | Image
+
+categories - many
+id| name     
+1 | Meva     
+2 | Uzb meva 
+3 | Sabzavot 
+4 | Askiyadagi meva
