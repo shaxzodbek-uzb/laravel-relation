@@ -15,7 +15,7 @@ class ProductStatistics{
     {
         $items = Product::with('prices')->get();
         $countProducts = $items->count();
-        Cache::put('countProducts', $countProducts, 10);
+        Cache::put('countProducts', $countProducts);
     }
 
     public static function read()

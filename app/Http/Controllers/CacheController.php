@@ -21,7 +21,6 @@ class CacheController extends Controller
      */
     public function index()
     {
-
         return response()->json(ProductStatistics::read());
     }
 
@@ -43,7 +42,10 @@ class CacheController extends Controller
      */
     public function store(Request $request)
     {
-        event(new ProductCreated());
+        $product = Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
     }
 
     /**
@@ -77,7 +79,7 @@ class CacheController extends Controller
      */
     public function update(Request $request, $id)
     {
-        event(new ProductUpdated);
+        // event(new ProductUpdated);
     }
 
     /**
@@ -88,6 +90,6 @@ class CacheController extends Controller
      */
     public function destroy($id)
     {
-        event(new ProductDeleted);
+        // event(new ProductDeleted);
     }
 }

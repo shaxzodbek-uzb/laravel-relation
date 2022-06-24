@@ -2,8 +2,13 @@
 
 namespace App\Models;
 
+use App\Events\ProductCreated;
+use App\Events\ProductDeleted;
+use App\Events\ProductUpdated;
+use App\Observers\ProductObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use function Illuminate\Events\queueable;
 
 class Product extends Model
 {
@@ -13,7 +18,11 @@ class Product extends Model
         'name',
         'description',
     ];
-
+    // attach observer
+    protected static function booted()
+    {
+        static::observe(ProductObserver::class);
+    }
     public function productDetail()
     {
         return $this->hasOne(ProductDetail::class);

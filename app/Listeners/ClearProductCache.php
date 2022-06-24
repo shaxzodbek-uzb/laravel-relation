@@ -28,7 +28,7 @@ class ClearProductCache implements ShouldQueue
     public function handle($event)
     {
         // sleep(10);
-        throw new \Exception("Error Processing Request", 1);
+        // throw new \Exception("Error Processing Request", 1);
         
         info('clear product cache listener triggered');
         ProductStatistics::clear();
