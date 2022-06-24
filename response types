@@ -1,0 +1,21 @@
+xml
+<tag type="integer" name="price" >
+    123
+</tag>
+
+<product>
+    <id>1</id>
+    <name type="string" length="1222">product 1</name>
+    <price>123</price>
+</product>
+
+<!-- soap -->
+
+json - js object notation
+{
+    "product":{
+        "id":"1",
+        "name":"product 1",
+        "price": "123"
+    }
+}

@@ -1,0 +1,8 @@
+{
+    response: {
+        item: {},
+        items: [],
+    },
+    error: integer | null,
+    comment: json | string | null,
+}
