@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Transformers\ProductTransformer;
 use Illuminate\Http\Request;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
+use League\Fractal\Serializer\DataArraySerializer;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use League\Fractal\Manager;
 
 class ProductController extends Controller
 {
@@ -14,7 +20,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        // $paginator = Product::paginate();
+        // $products = $paginator->getCollection();   
+
+        // $resource = new Collection($products, new  ProductTransformer);
+        // $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
+        
+        // return app(Manager::class)->createData($resource)->toArray();
+
+        $products = Product::paginate();
         return $products;
     }
 
@@ -49,7 +63,10 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        return $product;
+
+        $resource = new Item($product,new  ProductTransformer);
+        
+        return app(Manager::class)->createData($resource)->toArray();
     }
 
     /**
@@ -89,4 +106,6 @@ class ProductController extends Controller
         $product->delete();
         return $product;
     }
+
+
 }

@@ -25,6 +25,10 @@ class ProductObserver
      */
     public function updated(Product $product)
     {
+        if($product->wasChanged('name')){
+            event(ProductNameChanged::class);
+        }
+
         //
     }
 
