@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Transformers\ProductTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\Serializer\DataArraySerializer;
@@ -20,6 +21,14 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // $user->hasPermission('product-index');
+        // $response = Gate::inspect('viewAny', Product::class);
+        // if(!$response->allowed()) {
+        //     return redirect()->route('home')->with([
+        //         'errors' => 
+        //             'You do not have permission to access this page'
+        //         ]);
+        // }
         // $paginator = Product::paginate();
         // $products = $paginator->getCollection();   
 
@@ -29,7 +38,7 @@ class ProductController extends Controller
         // return app(Manager::class)->createData($resource)->toArray();
 
         $products = Product::paginate();
-        return $products;
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -77,6 +86,13 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $product = Product::find($id);
+        if (! Gate::allows('update-product', $product)) {
+            return redirect()->route('home')->with([
+                'errors' => 
+                    'You do not have permission to access this page'
+                ]);
+        }
         //
     }
 
