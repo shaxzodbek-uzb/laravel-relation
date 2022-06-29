@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RolesTableSeeder extends Seeder
 {
@@ -20,20 +22,23 @@ class RolesTableSeeder extends Seeder
         ];
 
         foreach ($data as $item) {
-            \App\Models\Role::create($item);
+            Role::findOrCreate($item['name']);
         }
 
         $data = [
-            ['name' => 'create products'],
-            ['name' => 'products index'],
+            ['name' => 'create-products'],
+            ['name' => 'index-products'],
+            ['name' => 'show-products'],
+            ['name' => 'update-products'],
+            ['name' => 'edit-products'],
         ];
 
         foreach ($data as $item) {
-            \App\Models\Permission::create($item);
+            Permission::findOrCreate($item['name']);
         }
 
-        $adminRole = \App\Models\Role::where('name', 'Admin')->first();
+        $adminRole = Role::where('name', 'Admin')->first();
 
-        $adminRole->permissions()->sync(\App\Models\Permission::all());
+        $adminRole->syncPermissions(Permission::all());
     }
 }

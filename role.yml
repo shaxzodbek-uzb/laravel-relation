@@ -1,0 +1,17 @@
+role
+ - admin - 1, 2, 3
+ - operator - 2
+ - stock - 3
+
+permission
+ - 1 - permission name
+ - 2 - permission name 2
+ - 3 - permission name 3
+
+
+user
+1
+2
+3
+4
+5

@@ -14,6 +14,13 @@ use League\Fractal\Manager;
 
 class ProductController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('permission:index-products')->only('index');
+        $this->middleware('permission:update-products')->only(['edit', 'update']);
+        $this->middleware('permission:store-products')->only('store');
+
+    }
     /**
      * Display a listing of the resource.
      *
